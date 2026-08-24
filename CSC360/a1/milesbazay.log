@@ -1,0 +1,444 @@
+2025/10/31 02:52:15 [testMake] Testing Makefile exists and can compile ssi, 0.25
+2025/10/31 02:52:15 [COMMAND]: /usr/bin/make -C submissions/milesbazay/p1 clean
+2025/10/31 02:52:15 make: Entering directory '/home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1'
+rm -f *.o
+rm -f ssi
+make: Leaving directory '/home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1'
+2025/10/31 02:52:15 [COMMAND]: /usr/bin/make -C submissions/milesbazay/p1
+2025/10/31 02:52:15 make: Entering directory '/home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1'
+gcc ssi.c background.c -Wall -Wextra -g -o ssi
+In file included from ssi.c:12:
+background.h:7: warning: "MAX_INPUT" redefined
+    7 | #define MAX_INPUT 1024
+      | 
+In file included from /usr/include/x86_64-linux-gnu/bits/local_lim.h:38,
+                 from /usr/include/x86_64-linux-gnu/bits/posix1_lim.h:161,
+                 from /usr/include/limits.h:183,
+                 from /usr/lib/gcc/x86_64-linux-gnu/10/include/limits.h:195,
+                 from /usr/lib/gcc/x86_64-linux-gnu/10/include/syslimits.h:7,
+                 from /usr/lib/gcc/x86_64-linux-gnu/10/include/limits.h:34,
+                 from ssi.c:6:
+/usr/include/linux/limits.h:11: note: this is the location of the previous definition
+   11 | #define MAX_INPUT        255 /* size of the type-ahead buffer */
+      | 
+ssi.c: In function ‘handle_sigint’:
+ssi.c:29:5: warning: implicit declaration of function ‘print_prompt’ [-Wimplicit-function-declaration]
+   29 |     print_prompt();
+      |     ^~~~~~~~~~~~
+ssi.c: At top level:
+ssi.c:33:6: warning: conflicting types for ‘print_prompt’
+   33 | void print_prompt(void) {
+      |      ^~~~~~~~~~~~
+ssi.c:29:5: note: previous implicit declaration of ‘print_prompt’ was here
+   29 |     print_prompt();
+      |     ^~~~~~~~~~~~
+ssi.c: In function ‘execute_foreground’:
+ssi.c:62:9: warning: implicit declaration of function ‘handle_cd’ [-Wimplicit-function-declaration]
+   62 |         handle_cd(args);
+      |         ^~~~~~~~~
+ssi.c: At top level:
+ssi.c:90:6: warning: conflicting types for ‘handle_cd’
+   90 | void handle_cd(char **args) {
+      |      ^~~~~~~~~
+ssi.c:62:9: note: previous implicit declaration of ‘handle_cd’ was here
+   62 |         handle_cd(args);
+      |         ^~~~~~~~~
+background.c: In function ‘notify_job_terminated’:
+background.c:69:43: warning: unused parameter ‘status’ [-Wunused-parameter]
+   69 | void notify_job_terminated(pid_t pid, int status) {
+      |                                       ~~~~^~~~~~
+make: Leaving directory '/home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1'
+2025/10/31 02:52:15 ==== Test name: testMake, Mark received: 0.25 ====
+
+2025/10/31 02:52:16 [testREADME] Testing README file exists, 0.25
+2025/10/31 02:52:16 [testREADME] README content: 
+CSC 360 - Programming Assignment 1 
+
+I have implemented the follwing features into my program:
+
+ls (Working wihtout bonus part): Will show the contents of a specified file or the file that you are currently working in if no file is specified.
+
+cd (fully working): Takes commands like cd <directory> or cd ../.. etc
+
+Signal handling: 
+
+CTRL + C interrupts the foreground process if it is running or moves to a new line without processing the already typed commands. Does not terminate the shell itself.
+
+CTRL + D terminates the shell
+
+exit is the same as CTRL + D but prints a goodbye message
+
+Background command execution: Takes in a bg <command> and starts a running proccess without interrupting the users foreground process. Also prints a terminated message when completed.
+
+Background job listing: lists the number of background jobs and their id's without listing any previously terminated processes
+
+pwd: prints the working directory
+
+date: prints the date and time
+
+make compiles all project files
+
+uname -a, ps -a and ls -alh gives same input as in a normal shell
+
+executes arbitrary programs and prints <name>: No such file or directory
+2025/10/31 02:52:16 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.25]): 
+2025/10/31 02:52:22 Mark received: y
+2025/10/31 02:52:22 ==== Test name: testREADME, Mark received: 0.25 ====
+
+2025/10/31 02:52:23 [testExecSSI] Testing your ssi can be executed without additional parameter, shows the correct prompt, and exit on EOF, 0.50
+2025/10/31 02:52:23 [COMMAND]: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/ssi
+2025/10/31 02:52:23 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+
+2025/10/31 02:52:23 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.50]): 
+2025/10/31 02:52:24 Mark received: y
+2025/10/31 02:52:24 ==== Test name: testExecSSI, Mark received: 0.50 ====
+
+2025/10/31 02:52:25 [testExec] Testing exec commands without parameters, 1.00
+2025/10/31 02:52:25 [COMMAND]: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/ssi
+2025/10/31 02:52:25 Sending command to SSI: ps  
+2025/10/31 02:52:25 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 >     PID TTY          TIME CMD
+3896086 pts/11   00:00:00 bash
+3931799 pts/11   00:00:00 p1marking
+3931911 pts/11   00:00:00 ssi
+3931912 pts/11   00:00:00 ps
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+
+2025/10/31 02:52:25 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:52:26 Mark received: y
+2025/10/31 02:52:26 [COMMAND]: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/ssi
+2025/10/31 02:52:26 Sending command to SSI: uptime  
+2025/10/31 02:52:26 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 >  02:52:26 up 28 days, 23:18,  4 users,  load average: 0.10, 0.10, 0.09
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+
+2025/10/31 02:52:26 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:52:28 Mark received: y
+2025/10/31 02:52:28 [COMMAND]: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/ssi
+2025/10/31 02:52:28 Sending command to SSI: date  
+2025/10/31 02:52:28 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > Fri 31 Oct 2025 02:52:28 AM PDT
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+
+2025/10/31 02:52:28 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:52:28 Mark received: y
+2025/10/31 02:52:28 [COMMAND]: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/ssi
+2025/10/31 02:52:28 Sending command to SSI: hostname  
+2025/10/31 02:52:28 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > linux201
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+
+2025/10/31 02:52:28 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:52:29 Mark received: y
+2025/10/31 02:52:29 [COMMAND]: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/ssi
+2025/10/31 02:52:29 Sending command to SSI: free  
+2025/10/31 02:52:29 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 >               total        used        free      shared  buff/cache   available
+Mem:        8136000     1923732     1774460        1540     4437808     5896600
+Swap:       2596856        8756     2588100
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+
+2025/10/31 02:52:29 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:52:30 Mark received: y
+2025/10/31 02:52:30 ==== Test name: testExec, Mark received: 1.00 ====
+
+2025/10/31 02:52:31 [testExecWithParameters] Testing exec with parameters, 1.00
+2025/10/31 02:52:31 Sending command to SSI: 
+ls temp
+
+2025/10/31 02:52:31 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > A
+B
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+
+2025/10/31 02:52:31 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:52:33 Mark received: y
+2025/10/31 02:52:33 Sending command to SSI: 
+ls temp/A/C
+
+2025/10/31 02:52:33 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > AC.txt
+D
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+
+2025/10/31 02:52:33 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:52:34 Mark received: y
+2025/10/31 02:52:34 Sending command to SSI: 
+cat temp/A/C/AC.txt
+
+2025/10/31 02:52:34 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > This is the content for AC.txt
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+
+2025/10/31 02:52:34 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:52:35 Mark received: y
+2025/10/31 02:52:35 Sending command to SSI: 
+ps -a
+
+2025/10/31 02:52:35 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 >     PID TTY          TIME CMD
+3889577 pts/7    00:00:00 bash
+3896463 pts/10   00:00:02 watch
+3931799 pts/11   00:00:00 p1marking
+3932031 pts/11   00:00:00 ssi
+3932032 pts/11   00:00:00 ps
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+
+2025/10/31 02:52:35 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:52:36 Mark received: y
+2025/10/31 02:52:36 Sending command to SSI: 
+echo hello
+
+2025/10/31 02:52:36 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > hello
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+
+2025/10/31 02:52:36 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:52:38 Mark received: y
+2025/10/31 02:52:38 ==== Test name: testExecWithParameters, Mark received: 1.00 ====
+
+2025/10/31 02:52:39 [testNotExistCommand] Testing non-existent command, 1.00
+2025/10/31 02:52:39 Sending command to SSI: 
+nonexistent 
+
+2025/10/31 02:52:39 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+
+2025/10/31 02:52:39 nonexistent: No such file or directory
+
+2025/10/31 02:52:39 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.50]): 
+2025/10/31 02:52:40 Mark received: y
+2025/10/31 02:52:40 Sending command to SSI: 
+non-exist-command 
+
+2025/10/31 02:52:40 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+
+2025/10/31 02:52:40 non-exist-command: No such file or directory
+
+2025/10/31 02:52:40 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.50]): 
+2025/10/31 02:52:42 Mark received: y
+2025/10/31 02:52:42 ==== Test name: testNotExistCommand, Mark received: 1.00 ====
+
+2025/10/31 02:52:43 [testExecLongRunning] Testing exec with long running command, 1.00
+2025/10/31 02:52:43 [COMMAND]: ./ssi
+2025/10/31 02:52:43 Waiting 5 seconds before sending Ctrl-C signal
+2025/10/31 02:52:48 Sending interrupt signal Ctrl-C to process group
+2025/10/31 02:52:48 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > PING 1.1.1.1 (1.1.1.1) 56(84) bytes of data.
+64 bytes from 1.1.1.1: icmp_seq=1 ttl=54 time=3.31 ms
+64 bytes from 1.1.1.1: icmp_seq=2 ttl=54 time=3.16 ms
+64 bytes from 1.1.1.1: icmp_seq=3 ttl=54 time=3.05 ms
+64 bytes from 1.1.1.1: icmp_seq=4 ttl=54 time=3.14 ms
+64 bytes from 1.1.1.1: icmp_seq=5 ttl=54 time=3.08 ms
+2025/10/31 02:52:48 
+
+--- 1.1.1.1 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4005ms
+rtt min/avg/max/mdev = 3.045/3.147/3.312/0.092 ms
+2025/10/31 02:52:48 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+2025/10/31 02:52:48 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+2025/10/31 02:52:48 Do you want to award mark for this test? (y/n or input a floating number between [0, 1.00]): 
+2025/10/31 02:52:50 Mark received: y
+2025/10/31 02:52:50 ==== Test name: testExecLongRunning, Mark received: 1.00 ====
+
+2025/10/31 02:52:51 [testPwd] Testing printing current working directory, 1.00
+2025/10/31 02:52:51 Sending command to SSI: 
+pwd 
+
+2025/10/31 02:52:51 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+
+2025/10/31 02:52:51 pwd should output: 
+/home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1
+2025/10/31 02:52:51 Do you want to award mark for this test? (y/n or input a floating number between [0, 1.00]): 
+2025/10/31 02:52:53 Mark received: y
+2025/10/31 02:52:53 ==== Test name: testPwd, Mark received: 1.00 ====
+
+2025/10/31 02:52:54 [testChangeRelativeDir] Testing changing relative directory, 1.00
+2025/10/31 02:52:54 Sending command to SSI: 
+cd ./temp
+pwd
+
+2025/10/31 02:52:54 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/temp > /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/temp
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/temp > 
+
+2025/10/31 02:52:54 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.25]): 
+2025/10/31 02:52:55 Mark received: y
+2025/10/31 02:52:55 Sending command to SSI: 
+cd ./A
+pwd
+
+2025/10/31 02:52:55 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/temp > clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/temp/A > /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/temp/A
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/temp/A > 
+
+2025/10/31 02:52:55 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.25]): 
+2025/10/31 02:52:56 Mark received: y
+2025/10/31 02:52:56 Sending command to SSI: 
+cd ..
+pwd
+
+2025/10/31 02:52:56 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/temp/A > clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/temp > /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/temp
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/temp > 
+
+2025/10/31 02:52:56 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.25]): 
+2025/10/31 02:52:56 Mark received: y
+2025/10/31 02:52:56 Sending command to SSI: 
+cd ./D/../..
+pwd
+
+2025/10/31 02:52:56 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/temp/A/C > clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/temp/A > /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/temp/A
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/temp/A > 
+
+2025/10/31 02:52:56 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.25]): 
+2025/10/31 02:52:57 Mark received: y
+2025/10/31 02:52:57 ==== Test name: testChangeRelativeDir, Mark received: 1.00 ====
+
+2025/10/31 02:52:58 [testChangeAbsDir] Testing changing absolute directory, 1.00
+2025/10/31 02:52:58 Sending command to SSI: 
+cd /tmp
+pwd
+
+2025/10/31 02:52:58 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > clarkzjw@linux201: /tmp > /tmp
+clarkzjw@linux201: /tmp > 
+
+2025/10/31 02:52:58 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:52:59 Mark received: y
+2025/10/31 02:52:59 Sending command to SSI: 
+cd /.././//
+pwd
+
+2025/10/31 02:52:59 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > clarkzjw@linux201: / > /
+clarkzjw@linux201: / > 
+
+2025/10/31 02:52:59 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:53:00 Mark received: y
+2025/10/31 02:53:00 Sending command to SSI: 
+cd /tmp/../tmp/../tmp/
+pwd
+
+2025/10/31 02:53:00 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > clarkzjw@linux201: /tmp > /tmp
+clarkzjw@linux201: /tmp > 
+
+2025/10/31 02:53:00 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:53:00 Mark received: y
+2025/10/31 02:53:00 Sending command to SSI: 
+cd /
+pwd
+
+2025/10/31 02:53:01 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > clarkzjw@linux201: / > /
+clarkzjw@linux201: / > 
+
+2025/10/31 02:53:01 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:53:01 Mark received: y
+2025/10/31 02:53:01 Sending command to SSI: 
+cd /.././
+pwd
+
+2025/10/31 02:53:01 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > clarkzjw@linux201: / > /
+clarkzjw@linux201: / > 
+
+2025/10/31 02:53:01 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:53:02 Mark received: y
+2025/10/31 02:53:02 ==== Test name: testChangeAbsDir, Mark received: 1.00 ====
+
+2025/10/31 02:53:03 [testChangeHomeDir] Testing changing home directory, 1.00
+2025/10/31 02:53:03 Sending command to SSI: 
+cd ~
+pwd
+
+2025/10/31 02:53:03 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > clarkzjw@linux201: /home/clarkzjw > /home/clarkzjw
+clarkzjw@linux201: /home/clarkzjw > 
+
+2025/10/31 02:53:03 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:53:05 Mark received: y
+2025/10/31 02:53:05 Sending command to SSI: 
+cd ~/..
+pwd
+
+2025/10/31 02:53:05 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+
+2025/10/31 02:53:05 cd: No such file or directory
+
+2025/10/31 02:53:05 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:53:07 Mark received: n
+2025/10/31 02:53:07 Sending command to SSI: 
+cd ~/
+pwd
+
+2025/10/31 02:53:07 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+
+2025/10/31 02:53:07 cd: No such file or directory
+
+2025/10/31 02:53:07 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:53:08 Mark received: n
+2025/10/31 02:53:08 Sending command to SSI: 
+cd ~/../../
+pwd
+
+2025/10/31 02:53:08 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+
+2025/10/31 02:53:08 cd: No such file or directory
+
+2025/10/31 02:53:08 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:53:08 Mark received: n
+2025/10/31 02:53:08 Sending command to SSI: 
+cd 
+pwd
+
+2025/10/31 02:53:08 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > clarkzjw@linux201: /home/clarkzjw > /home/clarkzjw
+clarkzjw@linux201: /home/clarkzjw > 
+
+2025/10/31 02:53:08 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.20]): 
+2025/10/31 02:53:09 Mark received: y
+2025/10/31 02:53:09 ==== Test name: testChangeHomeDir, Mark received: 0.40 ====
+
+2025/10/31 02:53:10 [testPromptCorrect] Testing prompt is correct, 1.00
+2025/10/31 02:53:10 Among all the above changing directory tests, does the prompt always show the correct cwd after each `cd` command?
+2025/10/31 02:53:10 Do you want to award mark for this test? (y/n or input a floating number between [0, 1.00]): 
+2025/10/31 02:53:13 Mark received: y
+2025/10/31 02:53:13 ==== Test name: testPromptCorrect, Mark received: 1.00 ====
+
+2025/10/31 02:53:14 [testBgPing] Testing `bg` command with `ping`, 5.00
+2025/10/31 02:53:14 Please wait for around 15 seconds
+2025/10/31 02:53:14 [COMMAND]: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1/ssi
+2025/10/31 02:53:14 Sending command to SSI: bg ping -c 5 1.1.1.1
+2025/10/31 02:53:14 Sending command to SSI: bg ping -c 10 8.8.8.8
+2025/10/31 02:53:14 Sending command to SSI: bglist  
+2025/10/31 02:53:14 Sending command to SSI: sleep 5 
+2025/10/31 02:53:14 Sending command to SSI: bglist  
+2025/10/31 02:53:14 Sending command to SSI: sleep 5 
+2025/10/31 02:53:14 Sending command to SSI: bglist  
+2025/10/31 02:53:24 clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > Started background job 3932497: ping -c 5 1.1.1.1
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > Started background job 3932498: ping -c 10 8.8.8.8
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 3932498: ping -c 10 8.8.8.8
+3932497: ping -c 5 1.1.1.1
+Total Background jobs: 2
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > PING 1.1.1.1 (1.1.1.1) 56(84) bytes of data.
+64 bytes from 1.1.1.1: icmp_seq=1 ttl=54 time=3.18 ms
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=113 time=3.48 ms
+64 bytes from 1.1.1.1: icmp_seq=2 ttl=54 time=3.08 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=113 time=3.42 ms
+64 bytes from 1.1.1.1: icmp_seq=3 ttl=54 time=3.32 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=113 time=3.35 ms
+64 bytes from 1.1.1.1: icmp_seq=4 ttl=54 time=3.25 ms
+64 bytes from 8.8.8.8: icmp_seq=4 ttl=113 time=3.31 ms
+64 bytes from 1.1.1.1: icmp_seq=5 ttl=54 time=3.32 ms
+
+--- 1.1.1.1 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4006ms
+rtt min/avg/max/mdev = 3.078/3.230/3.321/0.091 ms
+3932497: ping -c 5 1.1.1.1 has terminated.
+64 bytes from 8.8.8.8: icmp_seq=5 ttl=113 time=3.41 ms
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 3932498: ping -c 10 8.8.8.8
+Total Background jobs: 1
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 64 bytes from 8.8.8.8: icmp_seq=6 ttl=113 time=3.76 ms
+64 bytes from 8.8.8.8: icmp_seq=7 ttl=113 time=3.60 ms
+64 bytes from 8.8.8.8: icmp_seq=8 ttl=113 time=3.55 ms
+64 bytes from 8.8.8.8: icmp_seq=9 ttl=113 time=3.57 ms
+64 bytes from 8.8.8.8: icmp_seq=10 ttl=113 time=3.59 ms
+
+--- 8.8.8.8 ping statistics ---
+10 packets transmitted, 10 received, 0% packet loss, time 9015ms
+rtt min/avg/max/mdev = 3.312/3.503/3.757/0.127 ms
+3932498: ping -c 10 8.8.8.8 has terminated.
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > Total Background jobs: 0
+clarkzjw@linux201: /home/clarkzjw/csc360_fall25/marking/p1/submissions/a03/submissions/milesbazay/p1 > 
+
+2025/10/31 02:53:24 Do you want to award mark for this test? (y/n or input a floating number between [0, 5.00]): 
+2025/10/31 02:53:30 Mark received: y
+2025/10/31 02:53:30 ==== Test name: testBgPing, Mark received: 5.00 ====
+
+2025/10/31 02:53:31 
+==== Final Grade: 14.400000====

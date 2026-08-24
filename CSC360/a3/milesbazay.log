@@ -1,0 +1,317 @@
+2025/12/15 13:41:41 [testREADME] Testing README file exists, 0.50
+2025/12/15 13:41:41 [testREADME] README content: 
+I have completed the implementations of diskinfo, disklist, diskget and diskput
+
+The diskinfo, disklist and diskput functions should be working fully but I had some trouble with diskget.
+
+The diskinfo upon using ./diskinfo test.img will output exactly the same output as the provided test case.
+
+Disklist should follow the same format as the output as well and if the specified directory is not found it will print:
+"Requested directory <directory> not found."
+
+Diskput should be working properly and disklist will display the updated file information after diskput is used. 
+As an example after "./diskput test.img readme.txt /readme.txt" is used and "./disklist test.img /" is used the output will be something like:
+
+D          0                              . 2025/10/31 17:35:05
+F          0                     readme.txt 2025/11/28 20:07:49
+F          7                     readme.txt 2025/11/28 22:13:24
+F       2660                     readme.txt 2025/11/28 22:13:52
+
+Diskget will provide the correct output on "./diskget test.img /sub_dir/foo2.txt foo.txt" where foo2.txt is not found in sub_dir.
+Using "./diskget test.img readme.txt readme-copy.txt", will create a file but will not copy the file contents and address.
+
+The makefile compiles all four files correctly on "make" and "make clean" will remove the compiled files. 
+2025/12/15 13:41:41 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.50]): 
+2025/12/15 13:41:47 mark received: y
+2025/12/15 13:41:47 ==== Test name: testREADME, Mark received: (0.50/0.50) , Total: 0.50====
+
+2025/12/15 13:41:48 [testMake] Testing Makefile exists and can compile, 0.50
+2025/12/15 13:41:48 [COMMAND]: /usr/bin/make -C submissions/milesbazay/p3 clean
+2025/12/15 13:41:48 make: Entering directory '/home/clarkzjw/csc360_fall25/marking/p3/a03/submissions/milesbazay/p3'
+rm -f *.o
+rm -f diskinfo disklist diskget diskput
+make: Leaving directory '/home/clarkzjw/csc360_fall25/marking/p3/a03/submissions/milesbazay/p3'
+2025/12/15 13:41:48 [COMMAND]: /usr/bin/make -C submissions/milesbazay/p3
+2025/12/15 13:41:48 make: Entering directory '/home/clarkzjw/csc360_fall25/marking/p3/a03/submissions/milesbazay/p3'
+gcc -Wall -pthread -g -o diskinfo diskinfo.c
+gcc -Wall -pthread -g -o disklist disklist.c
+gcc -Wall -pthread -g -o diskget diskget.c
+gcc -Wall -pthread -g -o diskput diskput.c
+make: Leaving directory '/home/clarkzjw/csc360_fall25/marking/p3/a03/submissions/milesbazay/p3'
+2025/12/15 13:41:48 ==== Test name: testMake, Mark received: (0.50/0.50) , Total: 1.00====
+
+2025/12/15 13:41:49 [testDiskinfoOutputFormat] Testing the output of diskinfo follows the expected format, 1.00
+2025/12/15 13:41:49 [COMMAND]: /usr/bin/bash -c cp test_images/test-1.img test_images/test-2.img submissions/milesbazay/p3
+2025/12/15 13:41:49 
+2025/12/15 13:41:49 [testDiskinfoOutputFormat] diskinfo expected output: 
+Super block information:
+Block size: 512
+Block count: 6400
+FAT starts: 1
+FAT blocks: 50
+Root directory start: 51
+Root directory blocks: 8
+
+FAT information:
+Free Blocks: 6341
+Reserved Blocks: 49
+Allocated Blocks: 10
+
+2025/12/15 13:41:49 [testDiskinfoOutputFormat] diskinfo actual output:
+2025/12/15 13:41:49 [COMMAND]: ./diskinfo test-1.img
+2025/12/15 13:41:49 
+Super block information:
+Block size: 512
+Block count: 6400
+FAT starts: 1
+FAT blocks: 50
+Root directory start: 51
+Root directory blocks: 8
+
+FAT information:
+Free Blocks: 6341
+Reserved Blocks: 49
+Allocated Blocks: 10
+2025/12/15 13:41:49 Do you want to award mark for this test? (y/n or input a floating number between [0, 1.00]): 
+2025/12/15 13:41:52 mark received: y
+2025/12/15 13:41:52 ==== Test name: testDiskinfoOutputFormat, Mark received: (1.00/1.00) , Total: 2.00====
+
+2025/12/15 13:41:53 [testDiskinfoOutputCorrectness] Testing the output of diskinfo is correct, 1.00
+2025/12/15 13:41:53 [COMMAND]: /usr/bin/bash -c cp test_images/test-1.img test_images/test-2.img submissions/milesbazay/p3
+2025/12/15 13:41:53 
+2025/12/15 13:41:53 [COMMAND]: /usr/bin/bash -c cp test_images/test-1.img test_images/test-2.img ./reference
+2025/12/15 13:41:53 
+2025/12/15 13:41:53 [testDiskinfoOutputCorrectness]-1, expected output:
+2025/12/15 13:41:53 [COMMAND]: ./diskinfo test-1.img
+2025/12/15 13:41:53 
+Super block information:
+Block size: 512
+Block count: 6400
+FAT starts: 1
+FAT blocks: 50
+Root directory start: 51
+Root directory blocks: 8
+
+FAT information:
+Free Blocks: 6341
+Reserved Blocks: 49
+Allocated Blocks: 10
+2025/12/15 13:41:53 [testDiskinfoOutputCorrectness]-1, actual output:
+2025/12/15 13:41:53 [COMMAND]: ./diskinfo test-1.img
+2025/12/15 13:41:53 
+Super block information:
+Block size: 512
+Block count: 6400
+FAT starts: 1
+FAT blocks: 50
+Root directory start: 51
+Root directory blocks: 8
+
+FAT information:
+Free Blocks: 6341
+Reserved Blocks: 49
+Allocated Blocks: 10
+2025/12/15 13:41:53 [testDiskinfoOutputCorrectness] diskinfo output match, received mark: 0.50
+2025/12/15 13:41:53 [testDiskinfoOutputCorrectness]-2, expected output:
+2025/12/15 13:41:53 [COMMAND]: ./diskinfo test-2.img
+2025/12/15 13:41:53 
+Super block information:
+Block size: 512
+Block count: 6400
+FAT starts: 1
+FAT blocks: 50
+Root directory start: 51
+Root directory blocks: 8
+
+FAT information:
+Free Blocks: 6181
+Reserved Blocks: 49
+Allocated Blocks: 170
+2025/12/15 13:41:53 [testDiskinfoOutputCorrectness]-2, actual output:
+2025/12/15 13:41:53 [COMMAND]: ./diskinfo test-2.img
+2025/12/15 13:41:53 
+Super block information:
+Block size: 512
+Block count: 6400
+FAT starts: 1
+FAT blocks: 50
+Root directory start: 51
+Root directory blocks: 8
+
+FAT information:
+Free Blocks: 6181
+Reserved Blocks: 49
+Allocated Blocks: 170
+2025/12/15 13:41:53 [testDiskinfoOutputCorrectness] diskinfo output match, received mark: 0.50
+2025/12/15 13:41:53 ==== Test name: testDiskinfoOutputCorrectness, Mark received: (1.00/1.00) , Total: 3.00====
+
+2025/12/15 13:41:54 [testDisklistOutputFormat] Testing the output of disklist follows the expected format, 1.00
+2025/12/15 13:41:54 [COMMAND]: /usr/bin/bash -c cp test_images/test-1.img test_images/test-2.img submissions/milesbazay/p3
+2025/12/15 13:41:54 
+2025/12/15 13:41:54 [testDisklistOutputFormat] disklist expected output: 
+D          0                              . 2024-11-20 19:57:09
+D          0                        sub_Dir 2024-11-20 19:57:20
+F         16                       test.txt 2024-11-20 19:57:37
+F      31128                        cat.jpg 2024-11-20 19:57:54
+
+2025/12/15 13:41:54 [COMMAND]: ./disklist test-2.img /
+2025/12/15 13:41:54 
+D          0                              . 2025/10/31 17:35:05
+D          0                              . 2024/11/20 19:57:09
+D          0                        sub_Dir 2024/11/20 19:57:20
+F         16                       test.txt 2024/11/20 19:57:37
+F      31128                        cat.jpg 2024/11/20 19:57:54
+2025/12/15 13:41:54 Do you want to award mark for this test? (y/n or input a floating number between [0, 1.00]): 
+2025/12/15 13:41:58 mark received: y
+2025/12/15 13:41:58 ==== Test name: testDisklistOutputFormat, Mark received: (1.00/1.00) , Total: 4.00====
+
+2025/12/15 13:41:59 [testDisklistOutputCorrectness] Testing the output of disklist is correct, 3.00
+2025/12/15 13:41:59 [COMMAND]: /usr/bin/bash -c cp test_images/test-1.img test_images/test-2.img submissions/milesbazay/p3
+2025/12/15 13:41:59 
+2025/12/15 13:41:59 [COMMAND]: /usr/bin/bash -c cp test_images/test-1.img test_images/test-2.img ./reference
+2025/12/15 13:41:59 
+2025/12/15 13:41:59 [testDisklistOutputCorrectness]-1, expected output:
+2025/12/15 13:41:59 [COMMAND]: ./disklist test-2.img /
+2025/12/15 13:41:59 
+D          0                              . 2024/11/20 19:57:09
+D          0                        sub_Dir 2024/11/20 19:57:20
+F         16                       test.txt 2024/11/20 19:57:37
+F      31128                        cat.jpg 2024/11/20 19:57:54
+2025/12/15 13:41:59 [testDisklistOutputCorrectness]-1, actual output:
+2025/12/15 13:41:59 [COMMAND]: ./disklist test-2.img /
+2025/12/15 13:41:59 
+D          0                              . 2025/10/31 17:35:05
+D          0                              . 2024/11/20 19:57:09
+D          0                        sub_Dir 2024/11/20 19:57:20
+F         16                       test.txt 2024/11/20 19:57:37
+F      31128                        cat.jpg 2024/11/20 19:57:54
+2025/12/15 13:41:59 [testDisklistOutputCorrectness] disklist output not match
+2025/12/15 13:41:59 Do you want to award mark for this test? (y/n or input a floating number between [0, 1.00]): 
+2025/12/15 13:42:04 mark received: 0.5
+2025/12/15 13:42:04 [testDisklistOutputCorrectness]-2, expected output:
+2025/12/15 13:42:04 [COMMAND]: ./disklist test-2.img /sub_Dir
+2025/12/15 13:42:04 
+F      45535                        201.jpg 2024/11/20 19:55:11
+F         16                       test.txt 2024/11/20 19:57:37
+2025/12/15 13:42:04 [testDisklistOutputCorrectness]-2, actual output:
+2025/12/15 13:42:04 [COMMAND]: ./disklist test-2.img /sub_Dir
+2025/12/15 13:42:04 
+F      45535                        201.jpg 2024/11/20 19:55:11
+F         16                       test.txt 2024/11/20 19:57:37
+2025/12/15 13:42:04 [testDisklistOutputCorrectness] disklist output match, received mark: 1.00
+2025/12/15 13:42:04 [testDisklistOutputCorrectness]-3, expected output:
+2025/12/15 13:42:04 [COMMAND]: ./disklist test-2.img /sub_Dir/
+2025/12/15 13:42:04 
+F      45535                        201.jpg 2024/11/20 19:55:11
+F         16                       test.txt 2024/11/20 19:57:37
+2025/12/15 13:42:04 [testDisklistOutputCorrectness]-3, actual output:
+2025/12/15 13:42:04 [COMMAND]: ./disklist test-2.img /sub_Dir/
+2025/12/15 13:42:04 
+F      45535                        201.jpg 2024/11/20 19:55:11
+F         16                       test.txt 2024/11/20 19:57:37
+2025/12/15 13:42:04 [testDisklistOutputCorrectness] disklist output match, received mark: 1.00
+2025/12/15 13:42:04 ==== Test name: testDisklistOutputCorrectness, Mark received: (2.50/3.00) , Total: 6.50====
+
+2025/12/15 13:42:05 [testDiskgetFileNotFound] Testing diskget outputs file not found when the requested file does not exist, 0.50
+2025/12/15 13:42:05 [COMMAND]: /usr/bin/bash -c cp test_images/test-1.img test_images/test-2.img submissions/milesbazay/p3
+2025/12/15 13:42:05 
+2025/12/15 13:42:05 [COMMAND]: ./diskget test-2.img /not_exist not_exist.copy
+2025/12/15 13:42:05 
+Requested file not_exist not found in /not_exist.
+2025/12/15 13:42:05 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.50]): 
+2025/12/15 13:42:08 mark received: y
+2025/12/15 13:42:08 ==== Test name: testDiskgetFileNotFound, Mark received: (0.50/0.50) , Total: 7.00====
+
+2025/12/15 13:42:09 [testDiskget] Testing diskget can copy the requested file to host, 2.00
+2025/12/15 13:42:09 [COMMAND]: /usr/bin/bash -c cp test_images/test-1.img test_images/test-2.img submissions/milesbazay/p3
+2025/12/15 13:42:09 
+2025/12/15 13:42:09 [testDiskget]-1, diskget test.txt
+2025/12/15 13:42:09 [COMMAND]: ./diskget test-2.img /test.txt test.txt.copy
+2025/12/15 13:42:09 
+2025/12/15 13:42:09 File test.txt.copy exists
+2025/12/15 13:42:09 [testDiskget]-2, diskget sub_Dir/test.txt
+2025/12/15 13:42:09 [COMMAND]: ./diskget test-2.img /sub_Dir/test.txt sub_Dir_test.txt.copy
+2025/12/15 13:42:09 
+2025/12/15 13:42:09 File sub_Dir_test.txt.copy exists
+2025/12/15 13:42:09 ==== Test name: testDiskget, Mark received: (2.00/2.00) , Total: 9.00====
+
+2025/12/15 13:42:10 [testDiskgetFileSame] Testing diskget can copy the requested file to host and the file is the same as expected, 1.50
+2025/12/15 13:42:10 [COMMAND]: /usr/bin/bash -c cp test_images/test-1.img test_images/test-2.img submissions/milesbazay/p3
+2025/12/15 13:42:10 
+2025/12/15 13:42:10 [testDiskgetFileSame]-1, diskget cat.jpg
+2025/12/15 13:42:10 [COMMAND]: ./diskget test-2.img /cat.jpg cat.jpg.copy
+2025/12/15 13:42:10 
+2025/12/15 13:42:10 [testDiskgetFileSame]-1, diskget succeed, sha1sum same: 1ab45bddca25936cd5563b65e9276bee27f5a48f
+2025/12/15 13:42:10 [testDiskgetFileSame]-2, diskget test.txt
+2025/12/15 13:42:10 [COMMAND]: ./diskget test-2.img /test.txt test.txt.copy
+2025/12/15 13:42:10 
+2025/12/15 13:42:10 [testDiskgetFileSame]-2, diskget succeed, sha1sum same: dd9d29a308dc940a9c75f26532debb5e4bf6d6e9
+2025/12/15 13:42:10 [testDiskgetFileSame]-3, diskget sub_Dir/201.jpg
+2025/12/15 13:42:10 [COMMAND]: ./diskget test-2.img /sub_Dir/201.jpg 201.jpg.copy
+2025/12/15 13:42:10 
+2025/12/15 13:42:10 [testDiskgetFileSame]-3, diskget succeed, sha1sum same: 3c2ac88534a837ab138b1d94d26b63c8bc96ed28
+2025/12/15 13:42:10 ==== Test name: testDiskgetFileSame, Mark received: (1.50/1.50) , Total: 10.50====
+
+2025/12/15 13:42:11 [testDiskputFileNotFound] Testing diskput outputs File not found when the requested file does not exist on host, 0.50
+2025/12/15 13:42:11 [COMMAND]: /usr/bin/bash -c cp test_images/test-1.img test_images/test-2.img submissions/milesbazay/p3
+2025/12/15 13:42:11 
+2025/12/15 13:42:11 [COMMAND]: ./diskput test-2.img diskput_not_exist /diskput_not_exist
+2025/12/15 13:42:11 
+Source file diskput_not_exist not found.
+2025/12/15 13:42:11 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.50]): 
+2025/12/15 13:42:15 mark received: y
+2025/12/15 13:42:15 ==== Test name: testDiskputFileNotFound, Mark received: (0.50/0.50) , Total: 11.00====
+
+2025/12/15 13:42:16 [testDiskputAndList] Testing diskput can copy the requested file to the image and verify by disklist, 3.00
+2025/12/15 13:42:16 [COMMAND]: /usr/bin/bash -c cp test_images/test-1.img test_images/test-2.img submissions/milesbazay/p3
+2025/12/15 13:42:16 
+2025/12/15 13:42:16 [testDiskputAndList] Found Makefile in testDir
+2025/12/15 13:42:16 [testDiskputAndList]-1, diskput Makefile to /diskputTarget
+2025/12/15 13:42:16 [COMMAND]: ./diskput test-2.img Makefile /diskputTarget
+2025/12/15 13:42:16 
+2025/12/15 13:42:16 
+2025/12/15 13:42:16 [COMMAND]: ./disklist test-2.img /
+2025/12/15 13:42:16 
+D          0                              . 2025/10/31 17:35:05
+D          0                              . 2024/11/20 19:57:09
+D          0                        sub_Dir 2024/11/20 19:57:20
+F         16                       test.txt 2024/11/20 19:57:37
+F      31128                        cat.jpg 2024/11/20 19:57:54
+F        380                  diskputTarget 2025/12/15 13:42:16
+2025/12/15 13:42:16 Do you want to award mark for this test? (y/n or input a floating number between [0, 1.00]): 
+2025/12/15 13:42:19 mark received: y
+2025/12/15 13:42:19 [COMMAND]: ./diskget test-2.img /diskputTarget diskputTarget.copy2
+2025/12/15 13:42:19 
+2025/12/15 13:42:19 [testDiskputAndList] diskget get back file succeed, sha1sum same: 8e75892488153390c78d7e357ca3c707cc3301b7
+2025/12/15 13:42:19 [testDiskputAndList]-2, diskput Makefile to /sub_Dir/diskputTarget
+2025/12/15 13:42:19 [COMMAND]: ./diskput test-2.img Makefile /sub_Dir/diskputTarget
+2025/12/15 13:42:19 
+2025/12/15 13:42:19 
+2025/12/15 13:42:19 [COMMAND]: ./disklist test-2.img /sub_Dir
+2025/12/15 13:42:19 
+F      45535                        201.jpg 2024/11/20 19:55:11
+F         16                       test.txt 2024/11/20 19:57:37
+F        380                  diskputTarget 2025/12/15 13:42:19
+2025/12/15 13:42:19 Do you want to award mark for this test? (y/n or input a floating number between [0, 1.00]): 
+2025/12/15 13:42:22 mark received: y
+2025/12/15 13:42:22 [COMMAND]: ./diskget test-2.img /sub_Dir/diskputTarget subDirDiskputTarget.copy2
+2025/12/15 13:42:22 
+2025/12/15 13:42:22 [testDiskputAndList] diskget get back file succeed, sha1sum same: 8e75892488153390c78d7e357ca3c707cc3301b7
+2025/12/15 13:42:22 ==== Test name: testDiskputAndList, Mark received: (3.00/3.00) , Total: 14.00====
+
+2025/12/15 13:42:23 [testDiskputCreateDir] Testing diskput can create the directory in test image when the target file path directory does not exist, 0.50
+2025/12/15 13:42:23 [COMMAND]: /usr/bin/bash -c cp test_images/test-1.img test_images/test-2.img submissions/milesbazay/p3
+2025/12/15 13:42:23 
+2025/12/15 13:42:23 [testDiskputCreateDir] Found Makefile in testDir
+2025/12/15 13:42:23 [testDiskputCreateDir], diskput Makefile
+2025/12/15 13:42:23 [COMMAND]: ./diskput test-2.img Makefile /Dir2/diskputTarget
+2025/12/15 13:42:23 
+2025/12/15 13:42:23 [COMMAND]: ./disklist test-2.img /Dir2
+2025/12/15 13:42:23 
+F        380                  diskputTarget 2025/12/15 13:42:23
+2025/12/15 13:42:23 Do you want to award mark for this test? (y/n or input a floating number between [0, 0.50]): 
+2025/12/15 13:42:24 mark received: y
+2025/12/15 13:42:24 ==== Test name: testDiskputCreateDir, Mark received: (0.50/0.50) , Total: 14.50====
+
+2025/12/15 13:42:25 
+==== Final Grade: 14.500000====

@@ -1,0 +1,81 @@
+1)
+On top of the main thread I will have one thread per train as well as one controller thread to manage scheduling.
+
+I intend for the train threads to sleep until they announce they are ready, enqueue themselves in the proper direction queue,
+signal the controller that a new train is ready and print their status when signalled to do so.
+
+The controller thread oversees both queues to choose which train will proceed next according to a priority algorithm.
+
+The main thread reads the input file, initalizes data, creates all train threads and the controller, then joins and cleans up resources
+
+
+2)
+Threads will not work independently. I will use a controller as a global scheduler that keeps everything in check. Hopefully this format will make logic much simpler and avoid train competition.
+
+3)
+I will use three mutexes, one station mutex, one track mutex and a print mutex
+
+station_mutex keeps track of the last train direction and gaurds both queues
+
+track_mutex ensures only one train is on the main track at a time
+
+print_mutex prints all outputs
+
+4)
+The main thread will not be idle. This thread will read the input file into an array of train structures, initialize all mutexes and create controller and train threads.
+
+5)
+Each station will have two FIFO queues, one for each direction. Each queue will be a linked list of train structures. Each train structure will contain all relevant information about the train including its direction, arrival time, id, and pointers to the next and previous trains in the queue.
+
+6)
+All access to shared scheduling data is only access through the station mutex. A train thread will lock this mutex before enqueuing itself and the controller wil also lock it before selecting the next train.
+
+7)
+Condition vairables:
+
+controller_cv
+    Represents: "A new train is ready to be scheduled"
+    Associated Mutex: station_mutex
+    After waiting: Checks both quesus and selects the next train to proceed
+east_cv and west_cv
+    Represents: "The train can proceed onto the track"
+    Associated Mutex: station_mutex and track_mutex
+    After waiting: The train obtains the track mutex, croseses, prints and signals completion
+
+8)
+Overall algorithm sketch:
+
+Main Thread:
+    Read input file into array of train structures
+    Initialize mutexes and condition variables
+    Create controller thread
+    For each train structure in array:
+        Create train thread with train structure as argument
+    Join all train threads
+    Join controller thread
+    Cleanup resources
+
+Train thread:
+    Sleep until arrival time
+    Lock station_mutex
+    Enqueue self in appropriate direction queue
+    Signal controller_cv
+    Wait on east_cv or west_cv depending on direction
+    Unlock station_mutex
+    Lock track_mutex
+    Print crossing message
+    Sleep for crossing time
+    Print completion message
+    Unlock track_mutex
+
+Controller thread:
+    Loop while trains remain:
+        Lock station_mutex
+        While both queues are empty:
+            Wait on controller_cv
+        Select next train based on priority algorithm
+        Dequeue selected train
+        Signal east_cv or west_cv depending on train direction
+        Unlock station_mutex
+
+Feedback: Please make sure it can handle different train priorities, different loading times and directions, and avoid deadlocks. +2.5
