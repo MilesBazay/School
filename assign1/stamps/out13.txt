@@ -1,0 +1,5 @@
+max coverage = 69 : 1 2 3 5 7 11
+max coverage = 58 : 1 2 3 5 7 11
+max coverage = 55 : 1 2 3 5 7 11 13
+max coverage = 54 : 1 2 3 5 7 11 13 17
+max coverage = 60 : 1 2 3 5 7 11 13 17 19

@@ -1,0 +1,2 @@
+max coverage = 186 : 1 4 10 12 28
+max coverage = 154 : 1 4 11 13 27

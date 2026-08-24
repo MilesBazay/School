@@ -1,0 +1,4 @@
+max coverage = 29 : 1 3 11 47
+max coverage = 22 : 1 3 12 46
+max coverage = 55 : 1 3 12 13 45
+max coverage = 122 : 1 3 13 14 44

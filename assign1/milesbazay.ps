@@ -1,0 +1,1212 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 38 24 574 768
+%%Title: Enscript Output
+%%For: zastre
+%%Creator: GNU Enscript 1.6.6
+%%CreationDate: Thu Jun 25 11:49:47 2026
+%%Orientation: Portrait
+%%Pages: (atend)
+%%DocumentMedia: Letter 612 792 0 () ()
+%%DocumentNeededResources: (atend)
+%%EndComments
+%%BeginProlog
+%%BeginResource: procset Enscript-Prolog 1.6 6
+%
+% Procedures.
+%
+
+/_S {	% save current state
+  /_s save def
+} def
+/_R {	% restore from saved state
+  _s restore
+} def
+
+/S {	% showpage protecting gstate
+  gsave
+  showpage
+  grestore
+} bind def
+
+/MF {	% fontname newfontname -> -	make a new encoded font
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  % insert only valid encoding vectors
+  encoding_vector length 256 eq {
+    newfont /Encoding encoding_vector put
+  } if
+
+  newfontname newfont definefont pop
+} def
+
+/MF_PS { % fontname newfontname -> -	make a new font preserving its enc
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  newfontname newfont definefont pop
+} def
+
+/SF { % fontname width height -> -	set a new font
+  /height exch def
+  /width exch def
+
+  findfont
+  [width 0 0 height 0 0] makefont setfont
+} def
+
+/SUF { % fontname width height -> -	set a new user font
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF
+  /F-gs-user-font width height SF
+} def
+
+/SUF_PS { % fontname width height -> -	set a new user font preserving its enc
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF_PS
+  /F-gs-user-font width height SF
+} def
+
+/M {moveto} bind def
+/s {show} bind def
+
+/Box {	% x y w h -> -			define box path
+  /d_h exch def /d_w exch def /d_y exch def /d_x exch def
+  d_x d_y  moveto
+  d_w 0 rlineto
+  0 d_h rlineto
+  d_w neg 0 rlineto
+  closepath
+} def
+
+/bgs {	% x y height blskip gray str -> -	show string with bg color
+  /str exch def
+  /gray exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    gray setgray
+    fill
+  grestore
+  x y M str s
+} def
+
+/bgcs { % x y height blskip red green blue str -> -  show string with bg color
+  /str exch def
+  /blue exch def
+  /green exch def
+  /red exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    red green blue setrgbcolor
+    fill
+  grestore
+  x y M str s
+} def
+
+% Highlight bars.
+/highlight_bars {	% nlines lineheight output_y_margin gray -> -
+  gsave
+    setgray
+    /ymarg exch def
+    /lineheight exch def
+    /nlines exch def
+
+    % This 2 is just a magic number to sync highlight lines to text.
+    0 d_header_y ymarg sub 2 sub translate
+
+    /cw d_output_w cols div def
+    /nrows d_output_h ymarg 2 mul sub lineheight div cvi def
+
+    % for each column
+    0 1 cols 1 sub {
+      cw mul /xp exch def
+
+      % for each rows
+      0 1 nrows 1 sub {
+        /rn exch def
+        rn lineheight mul neg /yp exch def
+        rn nlines idiv 2 mod 0 eq {
+	  % Draw highlight bar.  4 is just a magic indentation.
+	  xp 4 add yp cw 8 sub lineheight neg Box fill
+	} if
+      } for
+    } for
+
+  grestore
+} def
+
+% Line highlight bar.
+/line_highlight {	% x y width height gray -> -
+  gsave
+    /gray exch def
+    Box gray setgray fill
+  grestore
+} def
+
+% Column separator lines.
+/column_lines {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h translate
+    /cw d_output_w cols div def
+    1 1 cols 1 sub {
+      cw mul 0 moveto
+      0 d_output_h rlineto stroke
+    } for
+  grestore
+} def
+
+% Column borders.
+/column_borders {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h moveto
+    0 d_output_h rlineto
+    d_output_w 0 rlineto
+    0 d_output_h neg rlineto
+    closepath stroke
+  grestore
+} def
+
+% Do the actual underlay drawing
+/draw_underlay {
+  ul_style 0 eq {
+    ul_str true charpath stroke
+  } {
+    ul_str show
+  } ifelse
+} def
+
+% Underlay
+/underlay {	% - -> -
+  gsave
+    0 d_page_h translate
+    d_page_h neg d_page_w atan rotate
+
+    ul_gray setgray
+    ul_font setfont
+    /dw d_page_h dup mul d_page_w dup mul add sqrt def
+    ul_str stringwidth pop dw exch sub 2 div ul_h_ptsize -2 div moveto
+    draw_underlay
+  grestore
+} def
+
+/user_underlay {	% - -> -
+  gsave
+    ul_x ul_y translate
+    ul_angle rotate
+    ul_gray setgray
+    ul_font setfont
+    0 0 ul_h_ptsize 2 div sub moveto
+    draw_underlay
+  grestore
+} def
+
+% Page prefeed
+/page_prefeed {		% bool -> -
+  statusdict /prefeed known {
+    statusdict exch /prefeed exch put
+  } {
+    pop
+  } ifelse
+} def
+
+% Wrapped line markers
+/wrapped_line_mark {	% x y charwith charheight type -> -
+  /type exch def
+  /h exch def
+  /w exch def
+  /y exch def
+  /x exch def
+
+  type 2 eq {
+    % Black boxes (like TeX does)
+    gsave
+      0 setlinewidth
+      x w 4 div add y M
+      0 h rlineto w 2 div 0 rlineto 0 h neg rlineto
+      closepath fill
+    grestore
+  } {
+    type 3 eq {
+      % Small arrows
+      gsave
+        .2 setlinewidth
+        x w 2 div add y h 2 div add M
+        w 4 div 0 rlineto
+        x w 4 div add y lineto stroke
+
+        x w 4 div add w 8 div add y h 4 div add M
+        x w 4 div add y lineto
+	w 4 div h 8 div rlineto stroke
+      grestore
+    } {
+      % do nothing
+    } ifelse
+  } ifelse
+} def
+
+% EPSF import.
+
+/BeginEPSF {
+  /b4_Inc_state save def    		% Save state for cleanup
+  /dict_count countdictstack def	% Count objects on dict stack
+  /op_count count 1 sub def		% Count objects on operand stack
+  userdict begin
+  /showpage { } def
+  0 setgray 0 setlinecap
+  1 setlinewidth 0 setlinejoin
+  10 setmiterlimit [ ] 0 setdash newpath
+  /languagelevel where {
+    pop languagelevel
+    1 ne {
+      false setstrokeadjust false setoverprint
+    } if
+  } if
+} bind def
+
+/EndEPSF {
+  count op_count sub { pos } repeat	% Clean up stacks
+  countdictstack dict_count sub { end } repeat
+  b4_Inc_state restore
+} bind def
+
+% Check PostScript language level.
+/languagelevel where {
+  pop /gs_languagelevel languagelevel def
+} {
+  /gs_languagelevel 1 def
+} ifelse
+%%EndResource
+%%BeginResource: procset Enscript-Encoding-88591 1.6 6
+/encoding_vector [
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclam       	/quotedbl     	/numbersign   	
+/dollar       	/percent      	/ampersand    	/quoteright   	
+/parenleft    	/parenright   	/asterisk     	/plus         	
+/comma        	/hyphen       	/period       	/slash        	
+/zero         	/one          	/two          	/three        	
+/four         	/five         	/six          	/seven        	
+/eight        	/nine         	/colon        	/semicolon    	
+/less         	/equal        	/greater      	/question     	
+/at           	/A            	/B            	/C            	
+/D            	/E            	/F            	/G            	
+/H            	/I            	/J            	/K            	
+/L            	/M            	/N            	/O            	
+/P            	/Q            	/R            	/S            	
+/T            	/U            	/V            	/W            	
+/X            	/Y            	/Z            	/bracketleft  	
+/backslash    	/bracketright 	/asciicircum  	/underscore   	
+/quoteleft    	/a            	/b            	/c            	
+/d            	/e            	/f            	/g            	
+/h            	/i            	/j            	/k            	
+/l            	/m            	/n            	/o            	
+/p            	/q            	/r            	/s            	
+/t            	/u            	/v            	/w            	
+/x            	/y            	/z            	/braceleft    	
+/bar          	/braceright   	/tilde        	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclamdown   	/cent         	/sterling     	
+/currency     	/yen          	/brokenbar    	/section      	
+/dieresis     	/copyright    	/ordfeminine  	/guillemotleft	
+/logicalnot   	/hyphen       	/registered   	/macron       	
+/degree       	/plusminus    	/twosuperior  	/threesuperior	
+/acute        	/mu           	/paragraph    	/bullet       	
+/cedilla      	/onesuperior  	/ordmasculine 	/guillemotright	
+/onequarter   	/onehalf      	/threequarters	/questiondown 	
+/Agrave       	/Aacute       	/Acircumflex  	/Atilde       	
+/Adieresis    	/Aring        	/AE           	/Ccedilla     	
+/Egrave       	/Eacute       	/Ecircumflex  	/Edieresis    	
+/Igrave       	/Iacute       	/Icircumflex  	/Idieresis    	
+/Eth          	/Ntilde       	/Ograve       	/Oacute       	
+/Ocircumflex  	/Otilde       	/Odieresis    	/multiply     	
+/Oslash       	/Ugrave       	/Uacute       	/Ucircumflex  	
+/Udieresis    	/Yacute       	/Thorn        	/germandbls   	
+/agrave       	/aacute       	/acircumflex  	/atilde       	
+/adieresis    	/aring        	/ae           	/ccedilla     	
+/egrave       	/eacute       	/ecircumflex  	/edieresis    	
+/igrave       	/iacute       	/icircumflex  	/idieresis    	
+/eth          	/ntilde       	/ograve       	/oacute       	
+/ocircumflex  	/otilde       	/odieresis    	/divide       	
+/oslash       	/ugrave       	/uacute       	/ucircumflex  	
+/udieresis    	/yacute       	/thorn        	/ydieresis    	
+] def
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%%IncludeResource: font Courier-Bold
+%%IncludeResource: font Courier
+/HFpt_w 10 def
+/HFpt_h 10 def
+/Courier-Bold /HF-gs-font MF
+/HF /HF-gs-font findfont [HFpt_w 0 0 HFpt_h 0 0] makefont def
+/Courier /F-gs-font MF
+/F-gs-font 10 10 SF
+/#copies 1 def
+% Pagedevice definitions:
+gs_languagelevel 1 gt {
+  <<
+    /PageSize [612 792] 
+  >> setpagedevice
+} if
+%%BeginResource: procset Enscript-Header-simple 1.6 6
+
+/do_header {	% print default simple header
+  gsave
+    d_header_x d_header_y HFpt_h 3 div add translate
+
+    HF setfont
+    user_header_p {
+      5 0 moveto user_header_left_str show
+
+      d_header_w user_header_center_str stringwidth pop sub 2 div
+      0 moveto user_header_center_str show
+
+      d_header_w user_header_right_str stringwidth pop sub 5 sub
+      0 moveto user_header_right_str show
+    } {
+      5 0 moveto fname show
+      45 0 rmoveto fmodstr show
+      45 0 rmoveto pagenumstr show
+    } ifelse
+
+  grestore
+} def
+%%EndResource
+/d_page_w 536 def
+/d_page_h 744 def
+/d_header_x 0 def
+/d_header_y 729 def
+/d_header_w 536 def
+/d_header_h 15 def
+/d_footer_x 0 def
+/d_footer_y 0 def
+/d_footer_w 536 def
+/d_footer_h 0 def
+/d_output_w 536 def
+/d_output_h 729 def
+/cols 1 def
+%%EndSetup
+%%Page: (1) 1
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 1 def
+/fname (expressions/Playground.hs) def
+/fdir (expressions) def
+/ftail (Playground.hs) def
+% User defined strings:
+/fmodstr (Mon Jun 22 20:38:55 2026) def
+/pagenumstr (1) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 716 M
+(-- Some starter code for Part 1 of CSC 330 Summer 2026 A#1) s
+5 705 M
+(-- ) s
+5 694 M
+(-- Author: Mike Zastre) s
+5 683 M
+(--) s
+5 672 M
+(-- The copyright for this code is held by Mike Zastre. It is) s
+5 661 M
+(-- not to be uploaded or otherwise accessed by any online service) s
+5 650 M
+(-- or online-facilitated tool \(such as Copilot or ChatGPT, although) s
+5 639 M
+(-- this list is not exhaustive\).) s
+5 595 M
+(text_a = "2 + 3 * 4") s
+5 584 M
+(text_b = "\(3 + 5\) * \(7 - 2\)") s
+5 573 M
+(text_c = "\(4 + 6 * \(2 ^ 3\)\) - 5 / \(1 + 1\)") s
+5 562 M
+(text_d = "\(14 + 26 * \(12 ^ 3\)\) - 55 / \(10 + 11\)") s
+5 529 M
+(data ParseNode = ) s
+5 518 M
+(        Expr ParseNode) s
+5 507 M
+(      | Add ParseNode ParseNode) s
+5 496 M
+(      | Sub ParseNode ParseNode) s
+5 485 M
+(        ) s
+5 474 M
+(      | Term ParseNode) s
+5 463 M
+(      | Mult ParseNode ParseNode) s
+5 452 M
+(      | Div ParseNode ParseNode) s
+5 441 M
+(        ) s
+5 430 M
+(      | Factor ParseNode) s
+5 419 M
+(      | Power ParseNode ParseNode) s
+5 408 M
+(        ) s
+5 397 M
+(      | Base ParseNode) s
+5 386 M
+(      | Number ParseNode) s
+5 375 M
+(        ) s
+5 364 M
+(      | Digit Integer) s
+5 353 M
+(        deriving \(Show, Eq\)) s
+5 331 M
+(parse_tree_a :: ParseNode) s
+5 320 M
+(parse_tree_a =) s
+5 309 M
+(    Add) s
+5 298 M
+(        \(Expr) s
+5 287 M
+(            \(Term) s
+5 276 M
+(                \(Factor) s
+5 265 M
+(                    \(Base) s
+5 254 M
+(                        \(Number) s
+5 243 M
+(                            \(Digit 2\)\)\)\)\)\)) s
+5 232 M
+(        \(Term) s
+5 221 M
+(            \(Mult) s
+5 210 M
+(                \(Term) s
+5 199 M
+(                    \(Factor) s
+5 188 M
+(                        \(Base) s
+5 177 M
+(                            \(Number) s
+5 166 M
+(                                \(Digit 3\)\)\)\)\)) s
+5 155 M
+(                \(Factor) s
+5 144 M
+(                    \(Base) s
+5 133 M
+(                        \(Number) s
+5 122 M
+(                            \(Digit 4\)\)\)\)\)\)) s
+5 111 M
+(                            ) s
+5 100 M
+(parse_tree_b :: ParseNode) s
+5 89 M
+(parse_tree_b =) s
+5 78 M
+(    Expr) s
+5 67 M
+(        \(Term) s
+5 56 M
+(            \(Mult) s
+5 45 M
+(                \(Term) s
+5 34 M
+(                    \(Factor) s
+5 23 M
+(                        \(Base) s
+5 12 M
+(                            \(Add) s
+_R
+S
+%%Page: (2) 2
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 2 def
+/fname (expressions/Playground.hs) def
+/fdir (expressions) def
+/ftail (Playground.hs) def
+% User defined strings:
+/fmodstr (Mon Jun 22 20:38:55 2026) def
+/pagenumstr (2) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 716 M
+(                                \(Expr) s
+5 705 M
+(                                    \(Term) s
+5 694 M
+(                                        \(Factor) s
+5 683 M
+(                                            \(Base) s
+5 672 M
+(                                                \(Number) s
+5 661 M
+(                                                    \(Digit 3\)\)\)\)\)\)) s
+5 650 M
+(                                \(Term) s
+5 639 M
+(                                    \(Factor) s
+5 628 M
+(                                        \(Base) s
+5 617 M
+(                                            \(Number) s
+5 606 M
+(                                                \(Digit 5\)\)\)\)\)\)\)\)\)) s
+5 595 M
+(                \(Factor) s
+5 584 M
+(                    \(Base) s
+5 573 M
+(                        \(Sub) s
+5 562 M
+(                            \(Expr) s
+5 551 M
+(                                \(Term) s
+5 540 M
+(                                    \(Factor) s
+5 529 M
+(                                        \(Base) s
+5 518 M
+(                                            \(Number) s
+5 507 M
+(                                                \(Digit 7\)\)\)\)\)\)) s
+5 496 M
+(                            \(Term) s
+5 485 M
+(                                \(Factor) s
+5 474 M
+(                                    \(Base) s
+5 463 M
+(                                        \(Number) s
+5 452 M
+(                                            \(Digit 2\)\)\)\)\)\)\)\)\)\)) s
+5 441 M
+(                                ) s
+5 430 M
+(parse_tree_c :: ParseNode) s
+5 419 M
+(parse_tree_c =) s
+5 408 M
+(    Sub) s
+5 397 M
+(        \(Expr) s
+5 386 M
+(            \(Term) s
+5 375 M
+(                \(Factor) s
+5 364 M
+(                    \(Base) s
+5 353 M
+(                        \(Add) s
+5 342 M
+(                            \(Expr) s
+5 331 M
+(                                \(Term) s
+5 320 M
+(                                    \(Factor) s
+5 309 M
+(                                        \(Base) s
+5 298 M
+(                                            \(Number) s
+5 287 M
+(                                                \(Digit 4\)\)\)\)\)\)) s
+5 276 M
+(                            \(Term) s
+5 265 M
+(                                \(Mult) s
+5 254 M
+(                                    \(Term) s
+5 243 M
+(                                        \(Factor) s
+5 232 M
+(                                            \(Base) s
+5 221 M
+(                                                \(Number) s
+5 210 M
+(                                                    \(Digit 6\)\)\)\)\)) s
+5 199 M
+(                                    \(Factor) s
+5 188 M
+(                                        \(Base) s
+5 177 M
+(                                            \(Power) s
+5 166 M
+(                                                \(Base) s
+5 155 M
+(                                                    \(Number) s
+5 144 M
+(                                                        \(Digit 2\)\)\)) s
+5 133 M
+(                                                \(Factor) s
+5 122 M
+(                                                    \(Base) s
+5 111 M
+(                                                        \(Number) s
+5 100 M
+(                                                            \(Digit 3\)\)\)\)\)\)\)\)\)\)\)\)\)\)) s
+5 89 M
+(        \(Term) s
+5 78 M
+(            \(Div) s
+5 67 M
+(                \(Term) s
+5 56 M
+(                    \(Factor) s
+5 45 M
+(                        \(Base) s
+5 34 M
+(                            \(Number) s
+5 23 M
+(                                \(Digit 5\)\)\)\)\)) s
+5 12 M
+(                \(Factor) s
+_R
+S
+%%Page: (3) 3
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 3 def
+/fname (expressions/Playground.hs) def
+/fdir (expressions) def
+/ftail (Playground.hs) def
+% User defined strings:
+/fmodstr (Mon Jun 22 20:38:55 2026) def
+/pagenumstr (3) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 716 M
+(                    \(Base) s
+5 705 M
+(                        \(Add) s
+5 694 M
+(                            \(Expr) s
+5 683 M
+(                                \(Term) s
+5 672 M
+(                                    \(Factor) s
+5 661 M
+(                                        \(Base) s
+5 650 M
+(                                            \(Number) s
+5 639 M
+(                                                \(Digit 1\)\)\)\)\)\)) s
+5 628 M
+(                            \(Term) s
+5 617 M
+(                                \(Factor) s
+5 606 M
+(                                    \(Base) s
+5 595 M
+(                                        \(Number) s
+5 584 M
+(                                            \(Digit 1\)\)\)\)\)\)\)\)\)\)) s
+5 573 M
+(                        ) s
+5 562 M
+(                                ) s
+5 540 M
+(parse_tree_d :: ParseNode) s
+5 529 M
+(parse_tree_d =) s
+5 518 M
+(    Sub) s
+5 507 M
+(        \(Expr) s
+5 496 M
+(            \(Term) s
+5 485 M
+(                \(Factor) s
+5 474 M
+(                    \(Base) s
+5 463 M
+(                        \(Add) s
+5 452 M
+(                            \(Expr) s
+5 441 M
+(                                \(Term) s
+5 430 M
+(                                    \(Factor) s
+5 419 M
+(                                        \(Base) s
+5 408 M
+(                                            \(Number) s
+5 397 M
+(                                                \(Digit 14\)\)\)\)\)\)) s
+5 386 M
+(                            \(Term) s
+5 375 M
+(                                \(Mult) s
+5 364 M
+(                                    \(Term) s
+5 353 M
+(                                        \(Factor) s
+5 342 M
+(                                            \(Base) s
+5 331 M
+(                                                \(Number) s
+5 320 M
+(                                                    \(Digit 26\)\)\)\)\)) s
+5 309 M
+(                                    \(Factor) s
+5 298 M
+(                                        \(Base) s
+5 287 M
+(                                            \(Power) s
+5 276 M
+(                                                \(Base) s
+5 265 M
+(                                                    \(Number) s
+5 254 M
+(                                                        \(Digit 12\)\)\)) s
+5 243 M
+(                                                \(Factor) s
+5 232 M
+(                                                    \(Base) s
+5 221 M
+(                                                        \(Number) s
+5 210 M
+(                                                            \(Digit 3\)\)\)\)\)\)\)\)\)\)\)\)\)\)) s
+5 199 M
+(        \(Term) s
+5 188 M
+(            \(Div) s
+5 177 M
+(                \(Term) s
+5 166 M
+(                    \(Factor) s
+5 155 M
+(                        \(Base) s
+5 144 M
+(                            \(Number) s
+5 133 M
+(                                \(Digit 55\)\)\)\)\)) s
+5 122 M
+(                \(Factor) s
+5 111 M
+(                    \(Base) s
+5 100 M
+(                        \(Add) s
+5 89 M
+(                            \(Expr) s
+5 78 M
+(                                \(Term) s
+5 67 M
+(                                    \(Factor) s
+5 56 M
+(                                        \(Base) s
+5 45 M
+(                                            \(Number) s
+5 34 M
+(                                                \(Digit 10\)\)\)\)\)\)) s
+5 23 M
+(                            \(Term) s
+5 12 M
+(                                \(Factor) s
+_R
+S
+%%Page: (4) 4
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 4 def
+/fname (expressions/Playground.hs) def
+/fdir (expressions) def
+/ftail (Playground.hs) def
+% User defined strings:
+/fmodstr (Mon Jun 22 20:38:55 2026) def
+/pagenumstr (4) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 716 M
+(                                    \(Base) s
+5 705 M
+(                                        \(Number) s
+5 694 M
+(                                            \(Digit 11\)\)\)\)\)\)\)\)\)\)) s
+5 672 M
+(expr_eval :: ParseNode -> Integer) s
+5 661 M
+(expr_eval \(Digit n\) = n) s
+5 639 M
+(expr_eval \(Number n\) = expr_eval n) s
+5 628 M
+(expr_eval \(Base n\) = expr_eval n) s
+5 617 M
+(expr_eval \(Factor n\) = expr_eval n) s
+5 606 M
+(expr_eval \(Expr n\) = expr_eval n) s
+5 595 M
+(expr_eval \(Term n\) = expr_eval n) s
+5 573 M
+(expr_eval \(Add e1 e2\) = \(expr_eval e1\) + \(expr_eval e2\)) s
+5 562 M
+(expr_eval \(Sub e1 e2\) = \(expr_eval e1\) - \(expr_eval e2\)) s
+5 551 M
+(expr_eval \(Mult e1 e2\) = \(expr_eval e1\) * \(expr_eval e2\)) s
+5 540 M
+(expr_eval \(Div e1 e2\) = \(expr_eval e1\) `div` \(expr_eval e2\)) s
+5 529 M
+(expr_eval \(Power e1 e2\) = expr_eval e1 ^ expr_eval e2) s
+_R
+S
+%%Page: (1) 5
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 1 def
+/fname (stamps/Stamps.hs) def
+/fdir (stamps) def
+/ftail (Stamps.hs) def
+% User defined strings:
+/fmodstr (Mon Jun 22 20:38:55 2026) def
+/pagenumstr (1) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 716 M
+(-- Code provided to students in UVic CSC 330 Summer 2026 ) s
+5 705 M
+(-- ) s
+5 694 M
+(-- Author: Mike Zastre) s
+5 683 M
+(--) s
+5 672 M
+(-- The copyright for this code is held by Mike Zastre. It is) s
+5 661 M
+(-- not to be uploaded or otherwise accessed by any online service) s
+5 650 M
+(-- or online-facilitated tool \(such as Copilot or ChatGPT, although) s
+5 639 M
+(-- this list is not exhaustive\).) s
+5 606 M
+(import System.IO) s
+5 595 M
+(import System.Environment \(getArgs\)) s
+5 584 M
+(import Data.List) s
+5 562 M
+(type ProblemTuple = \(Integer, [Integer]\)) s
+5 529 M
+(-- Top level function: Because Haskell constrains the mixture of) s
+5 518 M
+(-- of functions having I/O with functions having no I/O, we need) s
+5 507 M
+(-- to use an IO monad \(the "IO \(\)" syntax\).  There should be no) s
+5 496 M
+(-- need to modify this code unless you _really_ know what you are) s
+5 485 M
+(-- doing in Haskell.  This has been written for you in order that) s
+5 474 M
+(-- you may completely ignore I/O issues.) s
+5 463 M
+(--) s
+5 452 M
+(-- The first parameter if `stamps` is the name of the input file;) s
+5 441 M
+(-- the second is the name of the output file.) s
+5 430 M
+(--) s
+5 419 M
+(-- THERE SHOULD BE NO NEED TO MODIFY THE CODE UP TO THE POINT) s
+5 408 M
+(-- WITH THE COMMENT "-- STUDENT WORK BEGINS HERE".) s
+5 397 M
+(--) s
+5 375 M
+(main :: IO \(\)) s
+5 364 M
+(main = do) s
+5 353 M
+(    args <- getArgs) s
+5 342 M
+(    case args of) s
+5 331 M
+(        \(inFile : outFile : _\) -> stamps inFile outFile) s
+5 320 M
+(        _ -> putStrLn "Usage: <input file> <output file>") s
+5 298 M
+(stamps :: String -> String -> IO \(\)) s
+5 287 M
+(stamps inName outName = do) s
+5 276 M
+(    inFile <- openFile inName ReadMode) s
+5 265 M
+(    outFile <- openFile outName WriteMode) s
+5 254 M
+(    lineData <- hGetContents inFile) s
+5 243 M
+(    let rawLines = lines lineData) s
+5 232 M
+(    let problemList = parseData rawLines) s
+5 221 M
+(    let answers = process problemList) s
+5 210 M
+(    outputResults outFile answers) s
+5 199 M
+(    hClose inFile) s
+5 188 M
+(    hClose outFile) s
+5 166 M
+(parseData :: [String] -> [ProblemTuple]) s
+5 155 M
+(parseData [] = []) s
+5 144 M
+(parseData \(a:[]\) ) s
+5 133 M
+(    | a == "0"  = []) s
+5 122 M
+(    | otherwise = [\(-1, []\)]) s
+5 111 M
+(parseData \(a:b:as\) = \(width, stamps\) : parseData as) s
+5 100 M
+(    where) s
+5 89 M
+(        width = read a :: Integer) s
+5 78 M
+(        stamps = string2ints \(words b\)) s
+5 56 M
+(string2ints :: [String] -> [Integer]) s
+5 45 M
+(string2ints [] = []) s
+5 34 M
+(string2ints \(a:as\) = \(read a :: Integer\) : string2ints as) s
+5 12 M
+(ints2string :: [Integer] -> String) s
+_R
+S
+%%Page: (2) 6
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 2 def
+/fname (stamps/Stamps.hs) def
+/fdir (stamps) def
+/ftail (Stamps.hs) def
+% User defined strings:
+/fmodstr (Mon Jun 22 20:38:55 2026) def
+/pagenumstr (2) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 716 M
+(ints2string [] = "") s
+5 705 M
+(ints2string \(a:[]\) = show a) s
+5 694 M
+(ints2string \(a:as\) = show a ++ " " ++ ints2string as) s
+5 672 M
+(outputResults :: Handle -> [String] -> IO \(\)) s
+5 661 M
+(outputResults _ [] = return \(\)) s
+5 650 M
+(outputResults outFile \(a:as\) = do) s
+5 639 M
+(    hPutStrLn outFile a) s
+5 628 M
+(    outputResults outFile as) s
+5 584 M
+(--) s
+5 573 M
+(-- STUDENT WORK BEGINS HERE) s
+5 562 M
+(--) s
+5 551 M
+(-- YOU ARE FORBIDDEN TO USE EITHER "do" OR "let" IN YOUR) s
+5 540 M
+(-- SOLUTION. THE APPEARANCE OF EITHER OF THESE KEYWORDS) s
+5 529 M
+(-- IN YOUR CODE MAY RESULT IN A FAILING GRADE FOR THIS PART) s
+5 518 M
+(-- OF THE ASSIGNMENT.) s
+5 507 M
+(--) s
+5 485 M
+(process :: [ProblemTuple] -> [String]) s
+5 474 M
+(process [] = []) s
+5 463 M
+(process \(x:xs\) = singleProblem x : process xs) s
+5 441 M
+(singleProblem :: ProblemTuple -> String) s
+5 430 M
+(singleProblem \(maxStamps, stamps\) =) s
+5 419 M
+(    "max coverage = " ++ show\(coverage maxStamps \(tail stamps\)\) ++ " : " ++ ints2string) s
+5 408 M
+( \(tail stamps\)) s
+5 386 M
+(coverage :: Integer -> [Integer] -> Integer) s
+5 375 M
+(coverage maxStamps denominations = coverageFrom 1 maxStamps denominations) s
+5 342 M
+(coverageFrom :: Integer -> Integer -> [Integer] -> Integer) s
+5 331 M
+(coverageFrom amount maxStamps denominations) s
+5 320 M
+(    | checkValue amount maxStamps denominations = coverageFrom \(amount + 1\) maxStamps d) s
+5 309 M
+(enominations) s
+5 298 M
+(    | otherwise = amount - 1) s
+5 254 M
+(-- Amount \(Start 0 count up\), stamps left, [stamp denominations] returns bool) s
+5 243 M
+(checkValue :: Integer -> Integer -> [Integer] -> Bool) s
+5 232 M
+(checkValue 0 _ _ = True  -- Can always make 0) s
+5 221 M
+(checkValue _ 0 _ = False -- Cant make anything with no stamps left) s
+5 210 M
+(checkValue amount stampsLeft denominations =) s
+5 199 M
+(    tryStamps amount stampsLeft denominations denominations) s
+5 177 M
+(--Amount, stamps left, denominations, denominations again to remove first element retur) s
+5 166 M
+(n Bool) s
+5 155 M
+(tryStamps :: Integer -> Integer -> [Integer] -> [Integer]-> Bool) s
+5 144 M
+(tryStamps _ _ _ [] = False) s
+5 133 M
+(tryStamps amount stampsLeft denominations \(x:xs\)) s
+5 122 M
+(    | amount - x < 0 = tryStamps amount stampsLeft denominations xs) s
+5 111 M
+(    ) s
+5 100 M
+(    -- Checks stamps incrementally to find largest x that fits in the ammount) s
+5 89 M
+(    ) s
+5 78 M
+(    | checkValue \(amount - x\) \(stampsLeft - 1\) denominations = True) s
+5 67 M
+(    ) s
+5 56 M
+(    -- continue checking coverage with smaller amount and one less stamp) s
+5 45 M
+(    ) s
+5 34 M
+(    | otherwise = tryStamps amount stampsLeft denominations xs) s
+5 23 M
+(    ) s
+5 12 M
+(    -- Continue checking next x if checkValue comes back false with current x) s
+_R
+S
+%%Page: (3) 7
+%%BeginPageSetup
+_S
+38 24 translate
+/pagenum 3 def
+/fname (stamps/Stamps.hs) def
+/fdir (stamps) def
+/ftail (Stamps.hs) def
+% User defined strings:
+/fmodstr (Mon Jun 22 20:38:55 2026) def
+/pagenumstr (3) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+do_header
+5 694 M
+(--) s
+5 683 M
+(-- Here are two problem tuples to help you get started) s
+5 672 M
+(--) s
+5 639 M
+(pt0 :: [ProblemTuple]) s
+5 628 M
+(pt0 = [\(5, [2, 1, 4]\)]) s
+5 606 M
+(pt1 :: [ProblemTuple]) s
+5 595 M
+(pt1 = [\(5, [4, 1, 4, 12, 21]\),) s
+5 584 M
+(       \(10, [5, 1, 7, 16, 31, 88]\),) s
+5 573 M
+(       \(6, [4, 1, 5, 7, 8]\)) s
+5 562 M
+(      ]) s
+_R
+S
+%%Trailer
+%%Pages: 7
+%%DocumentNeededResources: font Courier-Bold Courier 
+%%EOF

@@ -1,0 +1,1 @@
+max coverage = 14 : 1 2 4

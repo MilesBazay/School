@@ -1,0 +1,80 @@
+{
+  "name": "Programming Languages",
+  "paradigms": [
+    "Procedural",
+    "Imperative",
+    "Object-Oriented",
+    "Functional",
+    "Symbolic",
+    "Lazy",
+    "Event-Driven",
+    "Prototype-Based"
+  ],
+
+  "languages": [
+        {
+          "name": "C",
+          "year": 1972,
+          "creator": "Dennis Ritchie",
+          "paradigm": ["Procedural", "Imperative"],
+          "influenced_by": ["B"],
+          "influences": ["C++", "Objective-C", "Go", "Rust"]
+        },
+        {
+          "name": "C++",
+          "year": 1985,
+          "creator": "Bjarne Stroustrup",
+          "paradigm": ["Procedural", "Object-Oriented"],
+          "influenced_by": ["C", "Simula"],
+          "influences": ["Java", "C#", "Rust"]
+        },
+        {
+          "name": "Rust",
+          "year": 2010,
+          "creator": "Graydon Hoare",
+          "paradigm": ["Systems", "Functional", "Imperative"],
+          "influenced_by": ["C", "C++"],
+          "influences": []
+        },
+        {
+          "name": "Lisp",
+          "year": 1958,
+          "creator": "John McCarthy",
+          "paradigm": ["Functional", "Symbolic"],
+          "influenced_by": ["Lambda Calculus"],
+          "influences": ["Scheme", "Common Lisp", "Clojure"]
+        },
+        {
+          "name": "Haskell",
+          "year": 1990,
+          "creator": "Committee",
+          "paradigm": ["Functional", "Lazy"],
+          "influenced_by": ["ML", "Lisp"],
+          "influences": ["Rust", "Elm", "PureScript"]
+        },
+        {
+          "name": "Scala",
+          "year": 2004,
+          "creator": "Martin Odersky",
+          "paradigm": ["Functional", "Object-Oriented"],
+          "influenced_by": ["Java", "Haskell"],
+          "influences": ["Kotlin"]
+        },
+        {
+          "name": "Python",
+          "year": 1991,
+          "creator": "Guido van Rossum",
+          "paradigm": ["Object-Oriented", "Imperative", "Functional"],
+          "influenced_by": ["ABC", "Modula-3"],
+          "influences": ["Julia", "Rust"]
+        },
+        {
+          "name": "JavaScript",
+          "year": 1995,
+          "creator": "Brendan Eich",
+          "paradigm": ["Event-Driven", "Functional", "Prototype-Based"],
+          "influenced_by": ["Scheme", "Self"],
+          "influences": ["TypeScript", "Node.js"]
+        }
+      ]
+}
